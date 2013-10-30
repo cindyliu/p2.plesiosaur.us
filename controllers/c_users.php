@@ -72,7 +72,10 @@ class users_controller extends base_controller {
 	    Router::redirect('/');
 	}
 	else {
-	    echo "Login failed. <a href='/'>Go back</a>";
+	    $this->template->content = View::instance('v_users_login');
+	    $this->template->content = "<p>Login failed. Please try again.<p>".$this->template->content;
+
+	    echo $this->template;
 	}
 
     }
