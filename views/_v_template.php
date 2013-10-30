@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php if(isset($title)) echo $title; ?></title>
+    <title><?php if(isset($title)) echo $title; ?></title>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
-					
-	<!-- Controller Specific JS/CSS -->
-	<?php if(isset($client_files_head)) echo $client_files_head; ?>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
+    <link rel='stylesheet' href='/css/main.css'>
+    <!-- Controller Specific JS/CSS -->
+    <?php if(isset($client_files_head)) echo $client_files_head; ?>
 	
 </head>
 
 <body>	
 
-        <nav>
-	        <menu>
-		        <?php if($user): ?>
-			        <li><a href='/posts/add'>Add Post</a></li>
-				<li><a href='/posts/'>View Posts</a></li>
-				<li><a href='/posts/users'>Follow users</a></li>
-				<li><a href='/users/logout'>Logout</a></li>
-				<br>You are logged in.<br>
-			<?php else: ?>
-			        <li><a href='/users/signup'>Sign up</a></li>
-				<li><a href='/users/login'>Log in</a></li>
-			<?php endif; ?>
-		</menu>
-	</nav>
+    <nav>
+        <?php if($user): ?>
+            <ul class='in'>
+		<li><a href='/posts/add'>add post</a></li>
+		<li><a href='/posts/'>view posts</a></li>
+		<li><a href='/posts/users'>follow users</a></li>
+		<li><a href='/users/logout'>log out</a></li>
+	    </ul>
+	<?php else: ?>
+	    <ul class='out'>
+	        <li><a href='/users/signup'>sign up</a></li>
+		<li><a href='/users/login'>log in</a></li><br>
+	    </ul>
+	<?php endif; ?>
+    </nav>
 
+    <h1><?=APP_NAME?></h1>
 
-	<?php if(isset($content)) echo $content; ?>
+    <div class='content'>
+        <?php if(isset($content)) echo $content; ?>
+    </div>
 
-	<?php if(isset($client_files_body)) echo $client_files_body; ?>
+    <?php if(isset($client_files_body)) echo $client_files_body; ?>
+
 </body>
 </html>

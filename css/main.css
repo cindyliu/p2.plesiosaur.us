@@ -1,0 +1,102 @@
+body {
+    background: url("/images/green_tiles.jpg");
+    font: 100%/125% "Verdana", sans-serif;
+    color: black;
+}
+
+.content {
+    display: block;
+    position: relative;
+    margin: auto;
+    padding: 2em;
+    background-color: #080;
+    font: 125%/150% "Verdana", sans-serif;
+    text-align: center;
+    border: solid .25em #555;
+    border-radius: 2em;
+    min-width: 15em;
+    max-width: 30em;
+    width: 35%;
+}
+
+em {
+    font-weight: bold;
+    font-style: normal;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.in {
+    float: left;
+}
+
+ul.out {
+    float: right;
+}
+
+nav {
+    display: block;
+    position: relative;
+    height: 3em;
+    margin-right: auto;
+}
+
+li {
+    float: left;
+}
+
+.text-block {
+    clear: both;
+}
+a:link {
+    text-decoration: none;
+    color: #339;
+}
+
+a:visited {
+    color: #99c;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+    color: #939;
+}
+
+.button, nav a {
+    display: block;
+    background-color: #080;
+    text-align: center;
+    font-weight: bold;
+    padding: .5em 1em .5em 1em;
+    border: solid 2px #555;
+    border-radius: 1em;
+}
+
+nav a:link, nav a:visited {
+    color: #adc;
+    margin: 0 .5em 0 .5em;
+}
+
+nav a:hover, nav a:active {
+    background-color: #cfc;
+    color: #080;
+    text-decoration: none;
+}
+
+h1 {
+    display: block;
+    background-color: #008;
+    color: #ccf;
+    text-align: center;
+    min-width: 5em;
+    width: 10%;
+    padding: 1em;
+    margin: 1em auto 1em auto;
+    border: solid .25em black;
+    border-radius: 1em;
+    clear: both;
+}

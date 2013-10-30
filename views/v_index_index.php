@@ -6,7 +6,8 @@
 
 <?php else: ?>
 
-    Welcome to my app. Please <a href='/users/signup'>sign up</a> or <a href='/users/login'>log in</a>.
+    Welcome to <em><?=APP_NAME?></em>.<br>
+    Please <a href='/users/signup'>sign up</a> or <a href='/users/login'>log in</a>.
 
 <?php endif; ?>
 

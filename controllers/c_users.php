@@ -11,7 +11,6 @@ class users_controller extends base_controller {
     }
 
     public function signup() {
-        echo "This is the signup page";
 
 	# Set up the view
 	$this->template->content = View::instance('v_users_signup');
@@ -69,10 +68,11 @@ class users_controller extends base_controller {
 
 	if($token) {
 	    setcookie('token', $token, strtotime('+1 month'), '/');
-	    echo "You are now logged in!<br><br>Go back to the <a href='/'>Home page</a><br>";
+//	    echo "You are now logged in!<br><br>Go back to the <a href='/'>Home page</a><br>";
+	    Router::redirect('/');
 	}
 	else {
-	    echo "Login failed :(<br>";
+	    echo "Login failed. <a href='/'>Go back</a>";
 	}
 
     }
