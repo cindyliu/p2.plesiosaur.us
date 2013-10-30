@@ -1,8 +1,6 @@
 <?php if($user): ?>
 
-    Hello, <?=$user->first_name;?>.
-    <br><br>
-    This is the Doctor. How are you?
+    Hello <?=$user->first_name;?>
 
 <?php else: ?>
 

@@ -29,13 +29,13 @@ class users_controller extends base_controller {
 	$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
 
 
-//	echo "<pre>";
-//	print_r($_POST);
-//	echo "</pre>";
+	echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
 
         DB::instance(DB_NAME)->insert_row('users', $_POST);
 
-	Router::redirect('/users/login/');
+//	Router::redirect('/users/login/');
 
     }
 
@@ -51,11 +51,11 @@ class users_controller extends base_controller {
     public function p_login() {
 
 	$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
-
-//      echo "<pre>";
-//	print_r($_POST);
-//	echo "</pre>";
-
+/*
+        echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
+*/
 	$q = 'SELECT token
 	      FROM users
 	      WHERE email = "'.$_POST['email'].'"
@@ -69,7 +69,7 @@ class users_controller extends base_controller {
 
 	if($token) {
 	    setcookie('token', $token, strtotime('+1 month'), '/');
-	    echo "You are now logged in!<br><br>Go back to the <a href='/'>Home page</a><br>";
+	    echo "You are logged in!<br>";
 	}
 	else {
 	    echo "Login failed :(<br>";
@@ -79,17 +79,7 @@ class users_controller extends base_controller {
 
 
     public function logout() {
-
-        $new_token = sha1(TOKEN_SALT.$this->user->email.Utils::generate_random_string());
-
-	$data = Array('token' => $new_token);
-
-	DB::instance(DB_NAME)->update('users',$data, 'WHERE user_id = '.$this->user->user_id);
-
-	setcookie('token', '', strtotime('-1 year'), '/');
-
-	Router::redirect('/');
-
+        echo "This is the logout page";
     }
 
     public function profile($user_name = NULL) {

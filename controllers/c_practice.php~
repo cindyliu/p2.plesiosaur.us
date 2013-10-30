@@ -1,0 +1,29 @@
+<?php
+
+class practice_controller extends base_controller {
+
+    public function test1() {
+
+        echo "You are looking at test1.<br>";
+#        require(APP_PATH.'/libraries/Image1.php');
+
+	echo APP_PATH."<br>";
+	echo DOC_ROOT."<br>";
+
+	$imageObj = new Image1('http://placekitten.com/500/500');
+
+#	$imageObj->resize(200,200);
+
+	$imageObj->display();
+
+    }
+
+    public function test2() {
+
+        echo Time::now();
+    
+    }
+
+} #eoc
+
+?>
