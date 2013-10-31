@@ -45,18 +45,13 @@ nav ul li {
     float: left;
 }
 
-a:link {
+a:link, a:visited {
     text-decoration: none;
     color: #339;
 }
 
-a:visited {
-    color: #99c;
-}
-
 a:hover, a:active {
     text-decoration: underline;
-    color: #939;
 }
 
 .button, nav a {
