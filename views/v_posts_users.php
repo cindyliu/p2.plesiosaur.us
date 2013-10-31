@@ -1,6 +1,6 @@
 <?php foreach($users as $user): ?>
 
-    <p><?=$user['first_name']?> <?=$user['last_name']?><br>
+    <p><?=$user['username']?><br>
 
     <?php if(isset($follows[$user['user_id']])): ?>
         <a href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
