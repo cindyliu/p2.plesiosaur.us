@@ -7,7 +7,7 @@ class users_controller extends base_controller {
     }
 
     public function index() {
-        echo "This is the index page";
+        Router::redirect('/posts/users');
     }
 
     public function signup() {

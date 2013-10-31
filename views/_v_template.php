@@ -12,8 +12,8 @@
 
 <body>	
 
-    <nav>
-        <?php if($user): ?>
+    <?php if($user): ?>
+        <nav>
             <ul class='in'>
 	        <li><a href='/'>home</a></li>
 		<li><a href='/users/profile'>me</a></li>
@@ -22,16 +22,18 @@
 		<li><a href='/posts/users'>users</a></li>
 		<li><a href='/users/logout'>log out</a></li>
 	    </ul>
-	<?php else: ?>
-	    <ul class='out'>
+	</nav>
+        <h1 class='in'><?=APP_NAME?></h1>
+    <?php else: ?>
+	<nav>
+            <ul class='out'>
 	        <li><a href='/users/signup'>sign up</a></li>
 		<li><a href='/users/login'>log in</a></li>
 	        <li><a href='/'>home</a></li>
 	    </ul>
-	<?php endif; ?>
-    </nav>
-
-    <h1><?=APP_NAME?></h1>
+        </nav>
+        <h1><?=APP_NAME?></h1>
+    <?php endif; ?>
 
     <div class='content'>
         <?php if(isset($content)) echo $content; ?>
