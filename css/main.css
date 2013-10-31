@@ -69,6 +69,7 @@ a:hover, a:active {
 a.button:link, a.button:visited {
     background-color: #004;
     color: #ccc;
+    font-size: 75%;
     margin: auto;
 }
 
@@ -123,6 +124,6 @@ h2, h2 a:link, h2 a:visited {
     color: black;
 }
 
-.username {
+.username, .username:link, .username:visited {
     color: black;
 }

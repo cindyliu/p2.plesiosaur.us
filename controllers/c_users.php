@@ -27,21 +27,28 @@ class users_controller extends base_controller {
 	$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
 	$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
 
-
-//	echo "<pre>";
-//	print_r($_POST);
-//	echo "</pre>";
-
-	$q = 'SELECT user_id
+	$e = 'SELECT user_id
 	      FROM users
 	      WHERE email = "'.$_POST['email'].'"
 	      LIMIT 1';
 
-	$user_exists = DB::instance(DB_NAME)->select_field($q);
+	$u = 'SELECT user_id
+	      FROM users
+	      WHERE username = "'.$_POST['username'].'"
+	      LIMIT 1';
 
-        if($user_exists) {
+	$email_exists = DB::instance(DB_NAME)->select_field($e);
+	$username_exists = DB::instance(DB_NAME)->select_field($u);
+
+        if($email_exists || $username_exists) {
 	    $this->template->content = View::instance('v_users_signup');
-	    $this->template->content = 'That email address is already in use.<br>'.$this->template->content;
+	    if($email_exists) {
+                $err_msg = 'That email address is already in use.<br>';
+            }
+	    elseif($username_exists) {
+	        $err_msg = 'That username is already in use.<br>';
+	    }
+	    $this->template->content = $err_msg.$this->template->content;
 	    echo $this->template;
 	    die();
 	}

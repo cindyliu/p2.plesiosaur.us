@@ -25,9 +25,34 @@ class posts_controller extends base_controller {
 
     }
 
-    public function index() {
+    public function delete($post_id = NULL) {
+
+        if((!$this->user) || (!$post_id)) {
+	    Router::redirect('/');
+	    die();
+	}
+
+	$q = 'SELECT user_id FROM posts WHERE post_id = '.$post_id;
+
+	$post_user_id = DB::instance(DB_NAME)->select_field($q);
+
+	if($this->user->user_id == $post_user_id) {
+	    DB::instance(DB_NAME)->delete(posts, 'WHERE post_id = '.$post_id);
+        }
+
+	Router::redirect('/users/profile');	
+    }
+
+    public function index($sort_order = 'posts.created') {
 
         $this->template->content = View::instance('v_posts_index');
+
+	if($sort_order == 'posts.created') {
+            $asc_desc = ' DESC';
+	}
+        else {
+            $asc_desc = ' ASC';
+        }
 
         $q = 'SELECT
 	          posts.content,
@@ -43,10 +68,11 @@ class posts_controller extends base_controller {
 	      INNER JOIN users
 	              ON posts.user_id = users.user_id
 	      WHERE users_users.user_id = '.$this->user->user_id.'
-	      ORDER BY posts.created DESC';
+	      ORDER BY '.$sort_order.$asc_desc;
 
         $posts = DB::instance(DB_NAME)->select_rows($q);
 
+	$this->template->content->sort_order = $sort_order;
         $this->template->content->posts = $posts;
 	echo $this->template;
 
@@ -58,7 +84,8 @@ class posts_controller extends base_controller {
 
         $q = 'SELECT *
 	      FROM users
-	      WHERE user_id != '.$this->user->user_id;
+	      WHERE user_id != '.$this->user->user_id.'
+	      ORDER BY username ASC';
 
 	$users = DB::instance(DB_NAME)->select_rows($q);
 
