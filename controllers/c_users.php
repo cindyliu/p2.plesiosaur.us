@@ -37,7 +37,9 @@ class users_controller extends base_controller {
 	      WHERE email = "'.$_POST['email'].'"
 	      LIMIT 1';
 
-        if($q) {
+	$user_exists = DB::instance(DB_NAME)->select_field($q);
+
+        if($user_exists) {
 	    $this->template->content = View::instance('v_users_signup');
 	    $this->template->content = 'That email address is already in use.<br>'.$this->template->content;
 	    echo $this->template;
