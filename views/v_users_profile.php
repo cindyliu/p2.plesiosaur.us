@@ -12,7 +12,9 @@
             <h3>my posts</h3>
             <?php foreach($user_posts as $user_post): ?>
 	        <p>
-	        <?=date('m/d/y | g:ia', $user_post['created'])?>:<br>
+		<span class='timestamp'>
+	            <?=date('m/d/y | g:ia', $user_post['created'])?>:<br>
+		</span>
 	        <?=$user_post['content']?>
 	        </p>
 	    <?php endforeach; ?>

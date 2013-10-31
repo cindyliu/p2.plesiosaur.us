@@ -65,8 +65,22 @@ a:hover, a:active {
     text-align: center;
     font-weight: bold;
     padding: .5em 1em .5em 1em;
+    margin: auto;
+    max-width: 6em;
     border: solid 2px #555;
     border-radius: 1em;
+}
+
+a.button:link, a.button:visited {
+    background-color: #004;
+    color: #ccc;
+    margin: auto;
+}
+
+a.button:hover, a.button:active {
+    background-color: #ccc;
+    color: #008;
+    text-decoration: none;
 }
 
 nav a:link, nav a:visited {
@@ -105,11 +119,15 @@ h1.in {
     clear: none;
 }
 
-h2 {
+h2, h2 a:link, h2 a:visited {
     color: black;
 }
 
 .timestamp {
     font-size: 75%;
-    color: white;
+    color: black;
+}
+
+.username {
+    color: black;
 }
