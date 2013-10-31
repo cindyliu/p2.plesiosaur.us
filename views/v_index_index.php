@@ -4,6 +4,7 @@
     <br><br>
     <h3>Updates</h3>
     <ul>
+        <li>Users can now delete their posts from their profile view.</li>
         <li>Users can now view profiles from the <a href='/posts/users'>users</a> page.</li>
 	<li>Users now automatically follow themselves upon signup.</li>
 	<li>Users no longer see option to follow themselves on users page.</li>
