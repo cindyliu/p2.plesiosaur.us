@@ -32,13 +32,19 @@ class users_controller extends base_controller {
 //	print_r($_POST);
 //	echo "</pre>";
 
-        DB::instance(DB_NAME)->insert_row('users', $_POST);
-
 	$q = 'SELECT user_id
 	      FROM users
 	      WHERE email = "'.$_POST['email'].'"
 	      LIMIT 1';
 
+        if($q) {
+	    $this->template->content = View::instance('v_users_signup');
+	    $this->template->content = 'That email address is already in use.<br>'.$this->template->content;
+	    echo $this->template;
+	    die();
+	}
+
+        DB::instance(DB_NAME)->insert_row('users', $_POST);
 
 	$new_user_id = DB::instance(DB_NAME)->select_field($q);
 
