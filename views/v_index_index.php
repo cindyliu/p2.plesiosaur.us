@@ -5,6 +5,10 @@
     <h3>Updates</h3>
     <ul>
         <li>Users can now view profiles from the <a href='/posts/users'>users</a> page.</li>
+	<li>Users now automatically follow themselves upon signup.</li>
+	<li>Users no longer see option to follow themselves on users page.</li>
+	<li>Timestamps added to all posts.</li>
+	<li>All posts now sorted with newest displayed at top.</li>
     </ul>
 
 <?php else: ?>
