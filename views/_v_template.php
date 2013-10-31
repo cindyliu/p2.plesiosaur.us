@@ -15,6 +15,7 @@
     <nav>
         <?php if($user): ?>
             <ul class='in'>
+	        <li><a href='/'>home</a></li>
 		<li><a href='/posts/add'>add post</a></li>
 		<li><a href='/posts/'>view posts</a></li>
 		<li><a href='/posts/users'>follow users</a></li>
@@ -23,7 +24,8 @@
 	<?php else: ?>
 	    <ul class='out'>
 	        <li><a href='/users/signup'>sign up</a></li>
-		<li><a href='/users/login'>log in</a></li><br>
+		<li><a href='/users/login'>log in</a></li>
+	        <li><a href='/'>home</a></li>
 	    </ul>
 	<?php endif; ?>
     </nav>
