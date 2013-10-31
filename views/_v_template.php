@@ -16,9 +16,10 @@
         <?php if($user): ?>
             <ul class='in'>
 	        <li><a href='/'>home</a></li>
-		<li><a href='/posts/add'>add post</a></li>
-		<li><a href='/posts/'>view posts</a></li>
-		<li><a href='/posts/users'>follow users</a></li>
+		<li><a href='/users/profile'>me</a></li>
+		<li><a href='/posts/add'>post</a></li>
+		<li><a href='/posts/'>feed</a></li>
+		<li><a href='/posts/users'>users</a></li>
 		<li><a href='/users/logout'>log out</a></li>
 	    </ul>
 	<?php else: ?>

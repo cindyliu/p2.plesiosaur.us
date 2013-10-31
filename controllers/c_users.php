@@ -34,6 +34,22 @@ class users_controller extends base_controller {
 
         DB::instance(DB_NAME)->insert_row('users', $_POST);
 
+	$q = 'SELECT user_id
+	      FROM users
+	      WHERE email = "'.$_POST['email'].'"
+	      LIMIT 1';
+
+
+	$new_user_id = DB::instance(DB_NAME)->select_field($q);
+
+	$auto_follow = Array(
+	    'created' => Time::now(),
+	    'user_id' => $new_user_id,
+	    'user_id_followed' => $new_user_id
+	    );
+
+	DB::instance(DB_NAME)->insert_row('users_users', $auto_follow);
+
 	Router::redirect('/users/login/');
 
     }
@@ -51,30 +67,20 @@ class users_controller extends base_controller {
 
 	$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
 
-//      echo "<pre>";
-//	print_r($_POST);
-//	echo "</pre>";
-
 	$q = 'SELECT token
 	      FROM users
 	      WHERE email = "'.$_POST['email'].'"
 	      AND password = "'.$_POST['password'].'"';
 
-//	echo $q."<br><br>";
-
 	$token = DB::instance(DB_NAME)->select_field($q);
-
-//	echo $token."<br><br>";
 
 	if($token) {
 	    setcookie('token', $token, strtotime('+1 month'), '/');
-//	    echo "You are now logged in!<br><br>Go back to the <a href='/'>Home page</a><br>";
 	    Router::redirect('/');
 	}
 	else {
 	    $this->template->content = View::instance('v_users_login');
 	    $this->template->content = "<p>Login failed. Please try again.<p>".$this->template->content;
-
 	    echo $this->template;
 	}
 
@@ -97,42 +103,49 @@ class users_controller extends base_controller {
 
     public function profile($user_name = NULL) {
 
-
     	if(!$this->user) {
-	    //Router::redirect('/');
-	    die('Members only!<br><a href="/users/login">Log in</a><br>');
+            $this->template->content = View::instance('v_users_restricted');
+	    echo $this->template;
+	    die();
 	}
+        else {
+            if(!$user_name) {
+	        $user_name = $this->user->username;
+            }
+            $q = 'SELECT
+	              users.username,
+	              users.first_name,
+		      users.last_name,
+		      users.email,
+		      users.profile_photo
+	          FROM users
+	          WHERE users.username = "'.$user_name.'"
+	          LIMIT 1';
 
+	    $profile = DB::instance(DB_NAME)->select_row($q);
 
-        $this->template->content = View::instance('v_users_profile');
-	$this->template->title = "Profile";
+	    $q = 'SELECT *
+	          FROM posts
+		  WHERE user_id = '.$this->user->user_id.'
+		  ORDER BY created DESC';
 
-	$client_files_head = Array('/css/profile.css','/css/master.css');
-	$this->template->client_files_head = Utils::load_client_files($client_files_head);
+	    $user_posts = DB::instance(DB_NAME)->select_rows($q);
 
-	$client_files_body = Array('/js/master.js');
-	$this->template->client_files_body = Utils::load_client_files($client_files_body);
+            $this->template->content = View::instance('v_users_profile');
+	    $this->template->title = 'User Profile: '.$user_name;
 
-	$this->template->content->user_name = $user_name;
+	    $client_files_head = Array('/css/profile.css','/css/master.css');
+	    $this->template->client_files_head = Utils::load_client_files($client_files_head);
 
-        echo $this->template;
+	    $client_files_body = Array('/js/master.js');
+	    $this->template->client_files_body = Utils::load_client_files($client_files_body);
 
-/*
-        # leave off the .php or it can't find it
-        $view = View::instance('v_users_profile');
+	    $this->template->content->profile = $profile;
+	    $this->template->content->user_posts = $user_posts;
+	    $this->template->content->display_posts = ($user_name == $this->user->username);
 
-	$view->user_name = $user_name;
-
-	echo $view;
-
-        if($user_name == NULL) {
-	    echo "No user specified";
-	}
-	else {
-	    echo "This is the profile for ".$user_name;
-	}
-*/
-
+            echo $this->template;
+        }
     }
 
 } #eoc

@@ -2,7 +2,10 @@
 
     Hello, <?=$user->first_name;?>.
     <br><br>
-    This is the Doctor. How are you?
+    <h3>Updates</h3>
+    <ul>
+        <li>Users can now view profiles from the <a href='/posts/users'>users</a> page.</li>
+    </ul>
 
 <?php else: ?>
 

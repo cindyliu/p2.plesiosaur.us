@@ -45,7 +45,7 @@ nav {
     margin-right: auto;
 }
 
-li {
+nav ul li {
     float: left;
 }
 
@@ -99,4 +99,9 @@ h1 {
     border: solid .25em black;
     border-radius: 1em;
     clear: both;
+}
+
+.timestamp {
+    font-size: 75%;
+    color: white;
 }
