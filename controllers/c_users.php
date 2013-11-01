@@ -133,7 +133,8 @@ class users_controller extends base_controller {
 	        $user_name = $this->user->username;
             }
             $q = 'SELECT
-	              users.username,
+	              users.user_id,
+		      users.username,
 	              users.first_name,
 		      users.last_name,
 		      users.email,
@@ -144,25 +145,32 @@ class users_controller extends base_controller {
 
 	    $profile = DB::instance(DB_NAME)->select_row($q);
 
-	    $q = 'SELECT *
-	          FROM posts
-		  WHERE user_id = '.$this->user->user_id.'
-		  ORDER BY created DESC';
-
-	    $user_posts = DB::instance(DB_NAME)->select_rows($q);
-
             $this->template->content = View::instance('v_users_profile');
-	    $this->template->title = 'User Profile: '.$user_name;
+	    $this->template->title = APP_NAME.' user profile: '.$user_name;
+	    $this->template->content->profile = $profile;
+
+	    $q = 'SELECT user_user_id
+	          FROM users_users
+		  WHERE user_id = "'.$this->user->user_id.'"
+		  AND user_id_followed = '.$profile['user_id'];
+
+            $display_posts = DB::instance(DB_NAME)->select_field($q);
+
+	    if($display_posts) {
+	        $q = 'SELECT *
+	              FROM posts
+		      WHERE user_id = '.$profile['user_id'].'
+		      ORDER BY created DESC';
+
+	        $user_posts = DB::instance(DB_NAME)->select_rows($q);
+	        $this->template->content->user_posts = $user_posts;
+	    }
 
 	    $client_files_head = Array('/css/profile.css','/css/master.css');
 	    $this->template->client_files_head = Utils::load_client_files($client_files_head);
 
 	    $client_files_body = Array('/js/master.js');
 	    $this->template->client_files_body = Utils::load_client_files($client_files_body);
-
-	    $this->template->content->profile = $profile;
-	    $this->template->content->user_posts = $user_posts;
-	    $this->template->content->display_posts = ($user_name == $this->user->username);
 
             echo $this->template;
         }

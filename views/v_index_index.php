@@ -4,6 +4,7 @@
     <br><br>
     <h3>Updates</h3>
     <ul>
+        <li>Users can now view all posts by another user on the other user's profile page.</li>
         <li>Users are now logged in automatically upon signup rather than redirected to the login page.</li>
         <li>Users can now delete their posts from their profile view.</li>
         <li>Users can now view profiles from the <a href='/posts/users'>users</a> page.</li>

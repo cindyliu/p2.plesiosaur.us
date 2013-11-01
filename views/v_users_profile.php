@@ -13,7 +13,7 @@
     <p><?=$profile['first_name']?> <?=$profile['last_name']?></p>
     <p class='email'><?=$profile['email']?></p>
 
-    <?php if($display_posts): ?>
+    <?php if($user_posts): ?>
 
         <div class='feed'>
 
