@@ -109,6 +109,12 @@ class users_controller extends base_controller {
 
     public function logout() {
 
+        if(!$this->user) {
+	    $this->template->content = View::instance('v_users_restricted');
+	    echo $this->template;
+	    die();
+        }
+
         $new_token = sha1(TOKEN_SALT.$this->user->email.Utils::generate_random_string());
 
 	$data = Array('token' => $new_token);
