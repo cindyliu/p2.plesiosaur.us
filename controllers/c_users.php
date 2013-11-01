@@ -40,7 +40,8 @@ class users_controller extends base_controller {
 	$email_exists = DB::instance(DB_NAME)->select_field($e);
 	$username_exists = DB::instance(DB_NAME)->select_field($u);
 
-        if($email_exists || $username_exists) {
+//        if(!empty($email_exists) || !empty($username_exists)) {
+	  if($email_exists || $username_exists) {
 	    $this->template->content = View::instance('v_users_signup');
 	    if($email_exists) {
                 $err_msg = 'That email address is already in use.<br>';
@@ -55,7 +56,7 @@ class users_controller extends base_controller {
 
         DB::instance(DB_NAME)->insert_row('users', $_POST);
 
-	$new_user_id = DB::instance(DB_NAME)->select_field($q);
+	$new_user_id = DB::instance(DB_NAME)->select_field($e);
 
 	$auto_follow = Array(
 	    'created' => Time::now(),
