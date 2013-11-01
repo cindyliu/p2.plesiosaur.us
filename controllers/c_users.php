@@ -64,9 +64,13 @@ class users_controller extends base_controller {
 	    'user_id_followed' => $new_user_id
 	    );
 
-	DB::instance(DB_NAME)->insert_row('users_users', $auto_follow);
+	$new_user = DB::instance(DB_NAME)->insert_row('users_users', $auto_follow);
 
-	Router::redirect('/users/login/');
+        if($new_user) {
+	    setcookie('token', $_POST['token'], strtotime('+1 month'), '/');
+	}
+
+	Router::redirect('/');
 
     }
 
