@@ -120,6 +120,20 @@ h1.in {
     clear: none;
 }
 
+td {
+    text-align: left;
+}
+
+td.prompt {
+    width: 50%;
+    text-align: right;
+}
+
+.err_msg {
+    color: #600;
+    font-size: 85%;
+}
+
 h2, h2 a:link, h2 a:visited {
     color: black;
 }

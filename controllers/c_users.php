@@ -10,6 +10,7 @@ class users_controller extends base_controller {
         Router::redirect('/posts/users');
     }
 
+/*
     public function signup() {
 
 	# Set up the view
@@ -18,14 +19,20 @@ class users_controller extends base_controller {
 	# Render the view
 	echo $this->template;
     }
+*/
 
+//    public function p_signup() {
+    public function signup() {
 
-    public function p_signup() {
+        $this->template->content = View::instance('v_users_signup');
+        $this->template->content->error = '<br>';
+	$errors = Array();
+	$error_flag = false;
 
-	$_POST['created'] = Time::now();
-	$_POST['modified'] = $_POST['created'];
-	$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
-	$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+	if(!$_POST) {
+	    echo $this->template;
+	    return;
+	}
 
 	$e = 'SELECT user_id
 	      FROM users
@@ -40,38 +47,61 @@ class users_controller extends base_controller {
 	$email_exists = DB::instance(DB_NAME)->select_field($e);
 	$username_exists = DB::instance(DB_NAME)->select_field($u);
 
-//        if(!empty($email_exists) || !empty($username_exists)) {
-	  if($email_exists || $username_exists) {
-	    $this->template->content = View::instance('v_users_signup');
+	if($email_exists || $username_exists) {
+	    $error_flag = true;
 	    if($email_exists) {
-                $err_msg = 'That email address is already in use.<br>';
+                array_push($errors,'That email address is already in use.');
             }
-	    elseif($username_exists) {
-	        $err_msg = 'That username is already in use.<br>';
+	    if($username_exists) {
+	        array_push($errors,'That username is already in use.');
 	    }
-	    $this->template->content = $err_msg.$this->template->content;
-	    echo $this->template;
-	    die();
+//	    $this->template->content = $err_msg.$this->template->content;
+//	    echo $this->template;
+//	    die();
 	}
 
-        DB::instance(DB_NAME)->insert_row('users', $_POST);
+	foreach($_POST as $prompt => $value) {
+	    if($value == '') {
+	        $error_flag = true;
+		array_push($errors, $prompt.' cannot be blank.');
+	    }
+	}
 
-	$new_user_id = DB::instance(DB_NAME)->select_field($e);
+	if($_POST['password'] != $_POST['password_check']) {
+	    $error_flag = true;
+	    array_push($errors, 'Password entries did not match.');
+	}
 
-	$auto_follow = Array(
-	    'created' => Time::now(),
-	    'user_id' => $new_user_id,
-	    'user_id_followed' => $new_user_id
+	$this->template->content->errors = $errors;	
+
+	if($error_flag) {
+	    echo $this->template;
+	}
+	else {
+	    unset($_POST['password_check']);
+	    $_POST['created'] = Time::now();
+	    $_POST['modified'] = $_POST['created'];
+	    $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+	    $_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+
+            DB::instance(DB_NAME)->insert_row('users', $_POST);
+
+	    $new_user_id = DB::instance(DB_NAME)->select_field($e);
+
+	    $auto_follow = Array(
+	        'created' => Time::now(),
+	        'user_id' => $new_user_id,
+	        'user_id_followed' => $new_user_id
 	    );
 
-	$new_user = DB::instance(DB_NAME)->insert_row('users_users', $auto_follow);
+	    $new_user = DB::instance(DB_NAME)->insert_row('users_users', $auto_follow);
 
-        if($new_user) {
-	    setcookie('token', $_POST['token'], strtotime('+1 month'), '/');
+            if($new_user) {
+	        setcookie('token', $_POST['token'], strtotime('+1 month'), '/');
+	    }
+
+	    Router::redirect('/');
 	}
-
-	Router::redirect('/');
-
     }
 
     public function login() {
