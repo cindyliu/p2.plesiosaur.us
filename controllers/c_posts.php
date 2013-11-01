@@ -8,12 +8,24 @@ class posts_controller extends base_controller {
 
     public function add() {
 
+        if(!$this->user) {
+            $this->template->content = View::instance('v_users_restricted');
+	    echo $this->template;
+	    die();
+        }
+
         $this->template->content = View::instance("v_posts_add");
 	echo $this->template;
 
     }
 
     public function p_add() {
+
+        if(!$this->user) {
+            $this->template->content = View::instance('v_users_restricted');
+	    echo $this->template;
+	    die();
+        }
 
         $_POST['user_id'] = $this->user->user_id;
 	$_POST['created'] = Time::now();
@@ -27,9 +39,14 @@ class posts_controller extends base_controller {
 
     public function delete($post_id = NULL) {
 
-        if((!$this->user) || (!$post_id)) {
-	    Router::redirect('/');
+        if(!$this->user) {
+            $this->template->content = View::instance('v_users_restricted');
+	    echo $this->template;
 	    die();
+        }
+
+        if(!$post_id) {
+	    die('You cannot delete a post you do not own.');
 	}
 
 	$q = 'SELECT user_id FROM posts WHERE post_id = '.$post_id;
@@ -44,6 +61,12 @@ class posts_controller extends base_controller {
     }
 
     public function index($sort_order = 'posts.created') {
+
+        if(!$this->user) {
+            $this->template->content = View::instance('v_users_restricted');
+	    echo $this->template;
+	    die();
+        }
 
         $this->template->content = View::instance('v_posts_index');
 
@@ -80,6 +103,12 @@ class posts_controller extends base_controller {
 
     public function users() {
 
+        if(!$this->user) {
+            $this->template->content = View::instance('v_users_restricted');
+	    echo $this->template;
+	    die();
+        }
+
         $this->template->content = View::instance('v_posts_users');
 
         $q = 'SELECT *
@@ -103,6 +132,12 @@ class posts_controller extends base_controller {
 
     public function follow($user_id_followed) {
 
+        if(!$this->user) {
+            $this->template->content = View::instance('v_users_restricted');
+	    echo $this->template;
+	    die();
+        }
+
         $data = Array(
 	    'created' => Time::now(),
 	    'user_id' => $this->user->user_id,
@@ -116,6 +151,12 @@ class posts_controller extends base_controller {
     }
 
     public function unfollow($user_id_followed) {
+
+        if(!$this->user) {
+            $this->template->content = View::instance('v_users_restricted');
+	    echo $this->template;
+	    die();
+        }
 
         $where_condition = 'WHERE user_id = '.$this->user->user_id.'
 			    AND user_id_followed = '.$user_id_followed;

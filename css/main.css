@@ -90,6 +90,11 @@ nav a:hover, nav a:active {
     text-decoration: none;
 }
 
+a#profile:link, a#profile:visited {
+    background-color: #ed8;
+    color: black;
+}
+
 h1 {
     display: block;
     background-color: #008;
