@@ -128,6 +128,3 @@ class posts_controller extends base_controller {
     }
 
 } #eoc
-
-?>
-
