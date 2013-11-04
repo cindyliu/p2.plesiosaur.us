@@ -20,20 +20,21 @@
             <h3>my posts</h3>
 
             <?php foreach($user_posts as $user_post): ?>
-	        <p>
+                <p>
+    		        <span class='timestamp'>
+	                   <?=date('m/d/y | g:ia', $user_post['created'])?>:<br>
+		            </span>
 
-		<span class='timestamp'>
-	            <?=date('m/d/y | g:ia', $user_post['created'])?>:<br>
-		</span>
+	                <?=$user_post['content']?><br>
 
-	        <?=$user_post['content']?><br>
-
-		<a href='/posts/delete/<?=$user_post['post_id']?>'>delete this post</a>
-	        </p>
-	    <?php endforeach; ?>
+                    <?php if($logged_in_user_id == $profile['user_id']): ?>
+    		            <a href='/posts/delete/<?=$user_post['post_id']?>'>delete this post</a>
+                    <?php endif; ?>
+	            </p>
+	        <?php endforeach; ?>
 
         </div>
 
     <?php endif; ?>
 
-<? endif; ?>
+<?php endif; ?>

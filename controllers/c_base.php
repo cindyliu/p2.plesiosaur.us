@@ -28,3 +28,5 @@ class base_controller {
 	}
 	
 } # eoc
+
+?>
