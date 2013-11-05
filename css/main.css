@@ -134,15 +134,36 @@ td.prompt {
     font-size: 85%;
 }
 
-h2, h2 a:link, h2 a:visited {
+h2, h2 a:link, h2 a:visited, h3 {
     color: black;
 }
 
-.timestamp {
+.timestamp, .delete {
     font-size: 75%;
     color: black;
 }
 
 .username, .username:link, .username:visited {
     color: black;
+    font-weight: bold;
+}
+
+.post {
+    padding: .25em 1em .25em 1em;
+    border: 1px solid black;
+    border-radius: 1.5em;
+}
+
+#user_list {
+    position: relative;
+    margin: auto;
+}
+
+#user_list .username, #user_list .button {
+    margin: 1em;
+}
+
+.warning {
+    color: #a00;
+    font: italic 75% 'Verdana', sans-serif;
 }

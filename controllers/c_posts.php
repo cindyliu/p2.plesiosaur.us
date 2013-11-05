@@ -57,6 +57,7 @@ class posts_controller extends base_controller {
         }
 
         $q = 'SELECT
+        	  posts.post_id,
 	          posts.content,
 			  posts.created,
         	  posts.user_id AS post_user_id,
@@ -125,6 +126,90 @@ class posts_controller extends base_controller {
 		DB::instance(DB_NAME)->delete('users_users', $where_condition);
 
 		Router::redirect('/posts/users');
+    }
+
+    public function comments($post_id = NULL) {
+
+    	if(!$post_id) {
+    		Router::redirect('/posts/error/post_not_found');
+    	}
+
+    	$q = 'SELECT *
+    		  FROM posts
+    		  WHERE post_id = '.$post_id;
+
+    	$post = DB::instance(DB_NAME)->select_row($q);
+    	if(!$post) {
+    		Router::redirect('/posts/error/post_not_found');
+    	}
+
+    	$q = 'SELECT
+    		      comments.*,
+    		      users.username
+    		  FROM comments
+    		  INNER JOIN users
+    		  		  ON comments.user_id = users.user_id
+    		  WHERE post_id = '.$post_id;
+
+    	$comments = DB::instance(DB_NAME)->select_rows($q);
+
+// CHECK TO MAKE SURE USER IS FOLLOWING THIS POST BEFORE DISPLAYING
+        $q = 'SELECT
+        	  posts.user_id AS user_id,
+			  users.username AS username
+		      FROM users_users
+		      INNER JOIN posts
+	 	              ON users_users.user_id_followed = posts.user_id
+		      INNER JOIN users
+		              ON posts.user_id = users.user_id
+	    	  WHERE users_users.user_id = '.$this->user->user_id.'
+	    	  AND posts.post_id = '.$post_id;
+
+	    $post_user_followed = DB::instance(DB_NAME)->select_row($q);
+
+    	if(!$post_user_followed) {
+    		Router::redirect('/posts/error/not_followed');
+    	}
+
+    	$this->template->content = View::instance('v_posts_comments');
+    	$this->template->content->post = $post;
+    	$this->template->content->comments = $comments;
+    	$this->template->content->post_user = $post_user_followed;
+    	$this->template->content->logged_in_user_id = $this->user->user_id;
+    	echo $this->template;
+    }
+
+    public function p_comment($post_id = NULL) {
+    	if(!$post_id) {
+    		Router::redirect('posts/error/post_not_found');
+    	}
+
+		$_POST['created'] = Time::now();
+        $_POST['user_id'] = $this->user->user_id;
+        $_POST['post_id'] = $post_id;
+
+		DB::instance(DB_NAME)->insert('comments', $_POST);
+
+        Router::redirect('/posts/comments/'.$post_id);
+    }
+
+    public function error($error_type = NULL) {
+
+    	$this->template->content = View::instance('v_posts_error');
+
+    	if($error_type == NULL) {
+    		$this->template->content->error = 'You have encountered an unexpected error.<br>';
+    	}
+    	if($error_type == 'impossible') {
+    		$this->template->content->error = 'Congratulations! You have encountered an impossible error.<br>';
+    	}
+    	if($error_type == 'post_not_found') {
+    		$this->template->content->error = 'Error: Post not found<br>';
+    	}
+    	if($error_type == 'not_followed') {
+    		$this->template->content->error = 'You must be following this user to view their posts.<br>';
+    	}
+
     }
 
 } #eoc

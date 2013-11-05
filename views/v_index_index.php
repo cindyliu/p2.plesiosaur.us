@@ -4,6 +4,7 @@
     <br><br>
     <h3>Updates</h3>
     <ul>
+        <li>NEW FEATURE: You can now add comments to posts!</li>
         <li>Signup now prohibits blank fields or usernames/emails that are already associated with an account.</li>
         <li>Signup now requires re-typing your password for confirmation.</li>
         <li>Logging out and hitting the browser's 'Back' button no longer produces error pages.</li>

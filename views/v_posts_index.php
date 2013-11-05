@@ -14,11 +14,13 @@ sort by:
 
 <?php foreach($posts as $post): ?>
 
-    <p>
-        <strong class='username'><?=$post['username']?>:<br></strong>
+    <p class='post'>
+        <a class='username' href='/users/profile/<?=$post['username']?>'><?=$post['username']?></a><br>
         <?=$post['content']?><br>
 	<span class='timestamp'>
-	    <?=date('m/d/y g:ia',$post['created'])?>
+	    <a href='/posts/comments/<?=$post['post_id']?>'>
+            <?=date('m/d/y g:ia',$post['created'])?>
+        </a>
 	</span>
     </p>
 
