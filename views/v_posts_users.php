@@ -1,6 +1,7 @@
 <h2>all users</h2>
 
-<table id='user_list' cellspacing=10>
+<div id='userlist'>
+<table cellspacing=10>
 
 <?php foreach($users as $user): ?>
 
@@ -22,3 +23,4 @@
 <?php endforeach; ?>
 
 </table>
+</div>

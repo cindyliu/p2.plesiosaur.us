@@ -16,8 +16,8 @@ body {
     border: solid .25em #555;
     border-radius: 2em;
     min-width: 15em;
-    max-width: 30em;
-    width: 35%;
+    max-width: 40em;
+    width: 40%;
     clear: left;
 }
 
@@ -61,7 +61,6 @@ a:hover, a:active {
     font-weight: bold;
     padding: .5em 1em .5em 1em;
     margin: auto;
-    max-width: 6em;
     border: solid 2px #555;
     border-radius: 1em;
 }
@@ -109,7 +108,7 @@ h1 {
     width: 10%;
     padding: 1em;
     margin: 1em auto 1em auto;
-    border: solid .25em #222;
+    border: solid 5px #222;
     border-radius: 1em;
     clear: none;
 }

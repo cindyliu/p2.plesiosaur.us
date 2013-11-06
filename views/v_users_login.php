@@ -2,6 +2,7 @@
 
 <form method='POST' action='/users/p_login'>
 
+<div>
 <table>
 <tr>
 	<td class='prompt'>Email:</td>
@@ -15,4 +16,5 @@
 
     <input type='Submit' value='Log in'><br>
 
+</div>
 </form>

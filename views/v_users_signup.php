@@ -8,6 +8,7 @@
     <?php endif; ?>
 </div>
 
+<div>
 <table>
 <tr>
     <td class='prompt'>First Name: </td>
@@ -37,4 +38,5 @@
 
 <input type='submit' value='Sign up!'>
 
+</div>
 </form>
