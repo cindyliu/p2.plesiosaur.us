@@ -23,7 +23,7 @@
             <li><a id='profile' href='/users/profile'><?=$user->username?></a></li>
 	    </ul>
         </nav>
-        <h1 class='in'><?=APP_NAME?></h1>
+        <a href='/'><h1 class='in'><?=APP_NAME?></h1></a>
     <?php else: ?>
         <nav>
         <ul class='out'>
@@ -33,6 +33,12 @@
 	    </ul>
         </nav>
         <h1><?=APP_NAME?></h1>
+    <?php endif; ?>
+
+    <?php if(isset($message)): ?>
+        <div class='confirmation'>
+            <?=$message?>
+        </div>
     <?php endif; ?>
 
     <div class='content'>

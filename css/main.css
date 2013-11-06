@@ -172,3 +172,20 @@ h2, h2 a:link, h2 a:visited, h3 {
     color: #a00;
     font: italic 75% 'Verdana', sans-serif;
 }
+
+.confirmation {
+    display: block;
+    position: relative;
+    background-color: black;
+    color: white;
+    font: 100%/125% "Verdana", sans-serif;
+    text-align: center;
+    margin: auto auto 2em auto;
+    padding: 1em;
+    border: solid 2px #555;
+    border-radius: 2em;
+    min-width: 15em;
+    max-width: 30em;
+    width: 25%;
+    clear: left;
+}

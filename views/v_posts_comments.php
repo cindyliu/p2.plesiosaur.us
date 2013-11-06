@@ -4,7 +4,7 @@
 
 <?php else: ?>
 
-    <h2><?=$post_user[username]?>'s post</h2>
+    <h2><?=$post_user['username']?>'s post</h2>
 
     <p class='post'>
         <span class='timestamp'>

@@ -24,7 +24,7 @@ class posts_controller extends base_controller {
 
 		DB::instance(DB_NAME)->insert('posts', $_POST);
 
-        Router::redirect('/posts/index');
+        Router::redirect('/posts/index/posts.created/post_added');
     }
 
     public function p_delete($post_id = NULL) {
@@ -38,10 +38,10 @@ class posts_controller extends base_controller {
 		$post_user_id = DB::instance(DB_NAME)->select_field($q);
 
 		if($this->user->user_id == $post_user_id) {
-	    	DB::instance(DB_NAME)->delete(posts, 'WHERE post_id = '.$post_id);
+	    	DB::instance(DB_NAME)->delete('posts', 'WHERE post_id = '.$post_id);
         }
 
-		Router::redirect('/posts/index');
+		Router::redirect('/posts/index/posts.created/post_deleted');
     }
 
     public function index($sort_order = 'posts.created',
@@ -77,7 +77,7 @@ class posts_controller extends base_controller {
 
 		$this->template->content->sort_order = $sort_order;
         $this->template->content->posts = $posts;
-/*
+
         switch($confirmation) {
         	case 'post_added':
         		$this->template->message = 'post successfully added';
@@ -87,7 +87,7 @@ class posts_controller extends base_controller {
         		break;
         	default:
         }
-*/
+
 		echo $this->template;
     }
 
@@ -138,7 +138,8 @@ class posts_controller extends base_controller {
 		Router::redirect('/posts/users');
     }
 
-    public function comments($post_id = NULL) {
+    public function comments($post_id = NULL,
+    						 $confirmation = NULL) {
 
     	if(!$post_id) {
     		Router::redirect('/posts/error/post_not_found');
@@ -187,6 +188,16 @@ class posts_controller extends base_controller {
     	$this->template->content->post_user = $post_user_followed;
     	$this->template->content->logged_in_user_id = $this->user->user_id;
 
+        switch($confirmation) {
+        	case 'comment_added':
+        		$this->template->message = 'comment successfully posted';
+        		break;
+        	case 'comment_deleted':
+        		$this->template->message = 'comment was deleted';
+        		break;
+        	default:
+        }
+
     	echo $this->template;
     }
 
@@ -201,7 +212,7 @@ class posts_controller extends base_controller {
 
 		DB::instance(DB_NAME)->insert('comments', $_POST);
 
-        Router::redirect('/posts/comments/'.$post_id);
+        Router::redirect('/posts/comments/'.$post_id.'/comment_added');
     }
 
     public function p_delete_comment($comment_id = NULL) {
@@ -214,10 +225,10 @@ class posts_controller extends base_controller {
 		$comment = DB::instance(DB_NAME)->select_row($q);
 
 		if($this->user->user_id == $comment['user_id']) {
-	    	DB::instance(DB_NAME)->delete(comments, 'WHERE comment_id = '.$comment_id);
+	    	DB::instance(DB_NAME)->delete('comments', 'WHERE comment_id = '.$comment_id);
         }
 
-		Router::redirect('/posts/comments/'.$comment['post_id']);
+		Router::redirect('/posts/comments/'.$comment['post_id'].'/comment_deleted');
     }
 
     public function error($error_type = NULL) {

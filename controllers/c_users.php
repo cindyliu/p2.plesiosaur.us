@@ -89,11 +89,11 @@ class users_controller extends base_controller {
 	        	setcookie('token', $_POST['token'], strtotime('+1 month'), '/');
 	    	}
 
-	    	Router::redirect('/');
+	    	Router::redirect('/index/index/signed_up');
 		}
     }
 
-    public function login() {
+    public function login($message = NULL) {
 
     	if($this->user) {
     		Router::redirect('/');
@@ -101,14 +101,18 @@ class users_controller extends base_controller {
 
 		$this->template->content = View::instance('v_users_login');
 
+		if($message == 'failed') {
+			$this->template->message = 'Login failed. Please try again.';
+		}
+
 		echo $this->template;
     }
 
   
     public function p_login() {
 
-    	if((trim($_POST['email']) == '') || (trim($_POST['password']) == '')) {
-    		Router::redirect('/users/login');
+    	if(($_POST['email'] == '') || ($_POST['password'] == '')) {
+    		Router::redirect('/users/login/failed');
     	}
 
 		$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
@@ -125,7 +129,7 @@ class users_controller extends base_controller {
 	    	Router::redirect('/');
 		}
 		else {
-			Router::redirect('/users/login');	
+			Router::redirect('/users/login/failed');	
 		}
     }
 
@@ -143,7 +147,7 @@ class users_controller extends base_controller {
 
 		setcookie('token', '', strtotime('-1 year'), '/');
 
-		Router::redirect('/');
+		Router::redirect('/index/index/logged_out');
     }
 
     public function profile($user_name = NULL) {
