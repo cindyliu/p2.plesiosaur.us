@@ -149,7 +149,8 @@ class posts_controller extends base_controller {
     		  FROM comments
     		  INNER JOIN users
     		  		  ON comments.user_id = users.user_id
-    		  WHERE post_id = '.$post_id;
+    		  WHERE post_id = '.$post_id.'
+    		  ORDER BY created ASC';
 
     	$comments = DB::instance(DB_NAME)->select_rows($q);
 
