@@ -297,12 +297,6 @@ class posts_controller extends base_controller {
             Router::redirect('/posts/error/bad_comment');
         }
 
-        // If either of the above errors, stop and make them do it again
-        if(isset($this->template->content->error)) {
-            echo $this->template;
-            return;
-        }
-
         // If all goes well, generate table row then add to comments table
 		$_POST['created'] = Time::now();
         $_POST['user_id'] = $this->user->user_id;
