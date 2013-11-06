@@ -1,8 +1,13 @@
 <?php
+
 class users_controller extends base_controller {
 
     public function __construct() {
         parent::__construct();
+    }
+
+    public function test() {
+    	echo 'test success';
     }
 
     public function index() {
@@ -45,7 +50,7 @@ class users_controller extends base_controller {
 		}
 
 		foreach($_POST as $prompt => $value) {
-		    if($value == '') {
+		    if(trim($value) == '') {
 	    	    $error_flag = true;
 				array_push($errors, $prompt.' cannot be blank.');
 	    	}
@@ -102,6 +107,10 @@ class users_controller extends base_controller {
   
     public function p_login() {
 
+    	if((trim($_POST['email']) == '') || (trim($_POST['password']) == '')) {
+    		Router::redirect('/users/login');
+    	}
+
 		$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
 
 		$q = 'SELECT token
@@ -116,12 +125,9 @@ class users_controller extends base_controller {
 	    	Router::redirect('/');
 		}
 		else {
-	    	$this->template->content = View::instance('v_users_login');
-	    	$this->template->content = "<p>Login failed. Please try again.<p>".$this->template->content;
-	    	echo $this->template;
+			Router::redirect('/users/login');	
 		}
     }
-
 
     public function logout() {
 
@@ -199,11 +205,9 @@ class users_controller extends base_controller {
         echo $this->template;
     }
 
-
     public function restricted() {
 
 		$this->template->content = View::instance('v_users_restricted');
-
 		echo $this->template;
     }
 

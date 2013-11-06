@@ -12,9 +12,8 @@ class posts_controller extends base_controller {
 
     public function add() {
 
-        $this->template->content = View::instance("v_posts_add");
+        $this->template->content = View::instance('v_posts_add');
 		echo $this->template;
-
     }
 
     public function p_add() {
@@ -28,10 +27,10 @@ class posts_controller extends base_controller {
         Router::redirect('/posts/index');
     }
 
-    public function delete($post_id = NULL) {
+    public function p_delete($post_id = NULL) {
 
         if(!$post_id) {
-		    die('Deleting a null post should never happen!');
+		    Router::redirect('posts/error/post_not_found');
 		}
 
 		$q = 'SELECT user_id FROM posts WHERE post_id = '.$post_id;
@@ -42,10 +41,11 @@ class posts_controller extends base_controller {
 	    	DB::instance(DB_NAME)->delete(posts, 'WHERE post_id = '.$post_id);
         }
 
-		Router::redirect('/users/profile');
+		Router::redirect('/posts/index');
     }
 
-    public function index($sort_order = 'posts.created') {
+    public function index($sort_order = 'posts.created',
+    					  $confirmation = NULL) {
 
         $this->template->content = View::instance('v_posts_index');
 
@@ -77,7 +77,17 @@ class posts_controller extends base_controller {
 
 		$this->template->content->sort_order = $sort_order;
         $this->template->content->posts = $posts;
-
+/*
+        switch($confirmation) {
+        	case 'post_added':
+        		$this->template->message = 'post successfully added';
+        		break;
+        	case 'post_deleted':
+        		$this->template->message = 'post was deleted';
+        		break;
+        	default:
+        }
+*/
 		echo $this->template;
     }
 
@@ -176,6 +186,7 @@ class posts_controller extends base_controller {
     	$this->template->content->comments = $comments;
     	$this->template->content->post_user = $post_user_followed;
     	$this->template->content->logged_in_user_id = $this->user->user_id;
+
     	echo $this->template;
     }
 
@@ -193,23 +204,44 @@ class posts_controller extends base_controller {
         Router::redirect('/posts/comments/'.$post_id);
     }
 
+    public function p_delete_comment($comment_id = NULL) {
+    	if(!$comment_id) {
+    		Router::redirect('posts/error/comment_not_found');
+    	}
+
+		$q = 'SELECT * FROM comments WHERE comment_id = '.$comment_id;
+
+		$comment = DB::instance(DB_NAME)->select_row($q);
+
+		if($this->user->user_id == $comment['user_id']) {
+	    	DB::instance(DB_NAME)->delete(comments, 'WHERE comment_id = '.$comment_id);
+        }
+
+		Router::redirect('/posts/comments/'.$comment['post_id']);
+    }
+
     public function error($error_type = NULL) {
 
     	$this->template->content = View::instance('v_posts_error');
 
-    	if($error_type == NULL) {
-    		$this->template->content->error = 'You have encountered an unexpected error.<br>';
-    	}
-    	if($error_type == 'impossible') {
-    		$this->template->content->error = 'Congratulations! You have encountered an impossible error.<br>';
-    	}
-    	if($error_type == 'post_not_found') {
-    		$this->template->content->error = 'Error: Post not found<br>';
-    	}
-    	if($error_type == 'not_followed') {
-    		$this->template->content->error = 'You must be following this user to view their posts.<br>';
+    	switch($error_type) {
+    		case 'post_not_found':
+    			$this->template->content->error = 'Error: Post not found<br>';
+    			break;
+    		case 'comment_not_found':
+    			$this->template->content->error = 'Error: Comment not found<br>';
+    			break;
+    		case 'not_followed':
+    			$this->template->content->error = 'You must be following this user to view their posts.<br>';
+    			break;
+    		case 'impossible':
+    			$this->template->content->error = 'Congratulations! You have encountered an impossible error.<br>';
+    			break;
+    		default:
+    			$this->template->content->error = 'You have encountered an unexpected error.<br>';
     	}
 
+    	echo $this->template;
     }
 
 } #eoc

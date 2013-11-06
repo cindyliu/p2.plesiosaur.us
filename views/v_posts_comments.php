@@ -14,7 +14,7 @@
         <?=$post['content']?><br>
 
         <?php if($logged_in_user_id == $post_user['user_id']): ?>
-            <a class='delete' href='/posts/delete/<?=$post['post_id']?>'>delete this post</a><br>
+            <a class='delete' href='/posts/p_delete/<?=$post['post_id']?>'>delete this post</a><br>
             <span class='warning'>Warning: deleting this post will permanently delete all associated comments.</span>
         <?php endif; ?>
     </p>
@@ -35,6 +35,10 @@
 		            </span>
 
 	                <?=$comment['content']?><br>
+
+                    <?php if($logged_in_user_id == $comment['user_id']): ?>
+                        <a class='delete' href='/posts/p_delete_comment/<?=$comment['comment_id']?>'>delete comment</a><br>
+                    <?php endif; ?>
 	            </p>
 	        <?php endforeach; ?>
 

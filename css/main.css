@@ -120,12 +120,17 @@ h1.in {
     clear: none;
 }
 
+table {
+    position: relative;
+    margin: auto;
+    table-layout: fixed;
+}
+
 td {
     text-align: left;
 }
 
 td.prompt {
-    width: 50%;
     text-align: right;
 }
 

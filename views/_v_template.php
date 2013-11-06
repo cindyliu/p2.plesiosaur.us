@@ -14,21 +14,21 @@
 
     <?php if($user): ?>
         <nav>
-            <ul class='in'>
+        <ul class='in'>
 	        <li><a href='/'>home</a></li>
-		<li><a href='/posts/add'>post</a></li>
-		<li><a href='/posts/'>feed</a></li>
-		<li><a href='/posts/users'>users</a></li>
-		<li><a href='/users/logout'>log out</a></li>
-		<li><a id='profile' href='/users/profile'><?=$user->username?></a></li>
+            <li><a href='/posts/add'>post</a></li>
+            <li><a href='/posts'>feed</a></li>
+            <li><a href='/posts/users'>users</a></li>
+            <li><a href='/users/logout'>log out</a></li>
+            <li><a id='profile' href='/users/profile'><?=$user->username?></a></li>
 	    </ul>
-	</nav>
+        </nav>
         <h1 class='in'><?=APP_NAME?></h1>
     <?php else: ?>
-	<nav>
-            <ul class='out'>
+        <nav>
+        <ul class='out'>
 	        <li><a href='/users/signup'>sign up</a></li>
-		<li><a href='/users/login'>log in</a></li>
+            <li><a href='/users/login'>log in</a></li>
 	        <li><a href='/'>home</a></li>
 	    </ul>
         </nav>

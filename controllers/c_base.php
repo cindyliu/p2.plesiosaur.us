@@ -11,7 +11,7 @@ class base_controller {
 
 	-------------------------------------------------------------------------------------------------*/
 	public function __construct() {
-						
+
 		# Instantiate User obj
 			$this->userObj = new User();
 			
@@ -24,7 +24,7 @@ class base_controller {
 								
 		# So we can use $user in views			
 			$this->template->set_global('user', $this->user);
-			
+
 	}
 	
 } # eoc

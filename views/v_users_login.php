@@ -2,8 +2,16 @@
 
 <form method='POST' action='/users/p_login'>
 
-    Email: <input type='text' name='email'><br>
-    Password: <input type='password' name='password'><br>
+<table>
+<tr>
+	<td class='prompt'>Email:</td>
+	<td><input type='text' name='email' size='30' required></td>
+</tr>
+<tr>
+	<td class='prompt'>Password:</td>
+	<td><input type='password' name='password' size='30' required></td>
+</tr>
+</table>
 
     <input type='Submit' value='Log in'><br>
 
