@@ -2,7 +2,7 @@ body {
     background: url("/images/night_sky.jpg");
     background-color: black;
     font: 100%/125% "Verdana", sans-serif;
-    color: #cfc;
+    color: white;
 }
 
 .content {
@@ -10,7 +10,7 @@ body {
     position: relative;
     margin: auto;
     padding: 2em;
-    background-color: #080;
+    background-color: #283;
     font: 125%/150% "Verdana", sans-serif;
     text-align: center;
     border: solid .25em #555;
@@ -47,7 +47,7 @@ nav ul li {
 
 a:link, a:visited {
     text-decoration: none;
-    color: #9c9;
+    color: #8e9;
 }
 
 a:hover, a:active {
@@ -56,7 +56,7 @@ a:hover, a:active {
 
 .button, nav a {
     display: block;
-    background-color: #080;
+    background-color: #283;
     text-align: center;
     font-weight: bold;
     padding: .5em 1em .5em 1em;
@@ -80,19 +80,24 @@ a.button:hover, a.button:active {
 }
 
 nav a:link, nav a:visited {
-    color: #adc;
+    color: #cfc;
     margin: 0 .5em 0 .5em;
 }
 
 nav a:hover, nav a:active {
     background-color: #cfc;
-    color: #080;
+    color: #283;
     text-decoration: none;
 }
 
 a#profile:link, a#profile:visited {
     background-color: #ed8;
     color: black;
+}
+
+a#profile:hover, a#profile:active {
+    background-color: black;
+    color: white;
 }
 
 h1 {
@@ -104,7 +109,7 @@ h1 {
     width: 10%;
     padding: 1em;
     margin: 1em auto 1em auto;
-    border: solid .25em black;
+    border: solid .25em #222;
     border-radius: 1em;
     clear: none;
 }

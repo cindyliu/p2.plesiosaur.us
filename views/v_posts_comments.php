@@ -6,7 +6,7 @@
 
     <h2><?=$post_user['username']?>'s post</h2>
 
-    <p class='post'>
+    <div class='post'>
         <span class='timestamp'>
             <?=date('m/d/y | g:ia', $post['created'])?>:<br>
         </span>
@@ -15,9 +15,9 @@
 
         <?php if($logged_in_user_id == $post_user['user_id']): ?>
             <a class='delete' href='/posts/p_delete/<?=$post['post_id']?>'>delete this post</a><br>
-            <span class='warning'>Warning: deleting this post will permanently delete all associated comments.</span>
+            <div class='warning'>Warning: deleting this post will permanently delete all associated comments.</div>
         <?php endif; ?>
-    </p>
+    </div>
 
     <h3>comments</h3>
 
@@ -57,5 +57,6 @@
             </div>
             <input type='submit' value='post comment'>
         </form>
+        <div class='warning'>Note: Your comment will be visible to anyone who can see this post.</div>
     </p>
 <?php endif; ?>
