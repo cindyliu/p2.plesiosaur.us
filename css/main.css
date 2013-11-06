@@ -1,3 +1,13 @@
+/*
+ *  ONE STYLE SHEET FOR ALL PAGES BECAUSE I
+ *  DON'T KNOW WHAT EFFICIENT CSS LOOKS LIKE
+ */
+
+
+/*
+ *  MAJOR PAGE ELEMENTS
+ */
+
 body {
     background: url("/images/night_sky.jpg");
     background-color: black;
@@ -15,16 +25,14 @@ body {
     text-align: center;
     border: solid .25em #555;
     border-radius: 2em;
-    min-width: 15em;
     max-width: 40em;
     width: 40%;
     clear: left;
 }
 
-em {
-    font-weight: bold;
-    font-style: normal;
-}
+/*
+ *  HEADER FORMATTING
+ */
 
 ul {
     list-style-type: none;
@@ -32,6 +40,7 @@ ul {
     padding: 0;
 }
 
+/* position header based on user login status */
 ul.in {
     float: left;
     margin: 1em auto 2em auto;
@@ -41,6 +50,7 @@ ul.out {
     float: right;
 }
 
+/* navigation buttons */
 nav ul li {
     float: left;
 }
@@ -65,6 +75,29 @@ a:hover, a:active {
     border-radius: 1em;
 }
 
+nav a:link, nav a:visited {
+    color: #cfc;
+    margin: 0 .5em 0 .5em;
+}
+
+nav a:hover, nav a:active {
+    background-color: #cfc;
+    color: #283;
+    text-decoration: none;
+}
+
+/* make profile button stand out a little more */
+a#profile:link, a#profile:visited {
+    background-color: #ed8;
+    color: black;
+}
+
+a#profile:hover, a#profile:active {
+    background-color: black;
+    color: white;
+}
+
+/* generic "buttons" (not just in header) */
 a.button:link, a.button:visited {
     background-color: #004;
     color: #ccc;
@@ -78,27 +111,7 @@ a.button:hover, a.button:active {
     text-decoration: none;
 }
 
-nav a:link, nav a:visited {
-    color: #cfc;
-    margin: 0 .5em 0 .5em;
-}
-
-nav a:hover, nav a:active {
-    background-color: #cfc;
-    color: #283;
-    text-decoration: none;
-}
-
-a#profile:link, a#profile:visited {
-    background-color: #ed8;
-    color: black;
-}
-
-a#profile:hover, a#profile:active {
-    background-color: black;
-    color: white;
-}
-
+/* h1 tag is pretty much only used in header */
 h1 {
     display: block;
     background-color: #008;
@@ -113,6 +126,7 @@ h1 {
     clear: none;
 }
 
+/* again changes based on user login status */
 h1.in {
     position: relative;
     float: right;
@@ -124,6 +138,12 @@ h1.in {
     clear: none;
 }
 
+/*
+ *  TABLE ELEMENT FORMATTING
+ *    Note: I could not prevent table elements
+ *    from extending past their container element
+ *    and I forgot to ask on Piazza. :( sorry
+ */
 table {
     position: relative;
     margin: auto;
@@ -136,17 +156,36 @@ td {
 
 td.prompt {
     text-align: right;
+
 }
 
-.err_msg {
-    color: #600;
-    font-size: 85%;
+
+/*
+ *  TEXT ELEMENT FORMATTING
+ */
+
+.post {
+    padding: .25em 1em .25em 1em;
+    border: 1px solid black;
+    border-radius: 1.5em;
 }
 
+#user_list {
+    display: block;
+    position: relative;
+    margin: auto;
+}
+
+#user_list .username, #user_list .button {
+    margin: 1em;
+}
+
+/* headers within content usually h2 or smaller */
 h2, h2 a:link, h2 a:visited, h3 {
     color: black;
 }
 
+/* reduce visibility on timestamps and delete links */
 .timestamp, .delete {
     font-size: 75%;
     color: black;
@@ -157,24 +196,16 @@ h2, h2 a:link, h2 a:visited, h3 {
     font-weight: bold;
 }
 
-.post {
-    padding: .25em 1em .25em 1em;
-    border: 1px solid black;
-    border-radius: 1.5em;
-}
-
-#user_list {
-    position: relative;
-    margin: auto;
-}
-
-#user_list .username, #user_list .button {
-    margin: 1em;
+.err_msg {
+    color: #600;
+    font-size: 85%;
 }
 
 .warning {
     color: #a00;
     font: italic 75% 'Verdana', sans-serif;
+    margin: 1em auto 1em auto;
+    width: 75%;
 }
 
 .confirmation {
@@ -192,4 +223,9 @@ h2, h2 a:link, h2 a:visited, h3 {
     max-width: 30em;
     width: 25%;
     clear: left;
+}
+
+em {
+    font-weight: bold;
+    font-style: normal;
 }

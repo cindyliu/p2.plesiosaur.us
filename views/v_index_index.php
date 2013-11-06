@@ -1,3 +1,5 @@
+<!-- HOME PAGE -->
+
 <?php if($user): ?>
 
     Hello, <?=$user->first_name;?>.
@@ -22,8 +24,15 @@
 <?php else: ?>
 
     Welcome to the <em><?=APP_NAME?></em>.<br>
-    Please <a href='/users/signup'>sign up</a> or <a href='/users/login'>log in</a>.
+    Please <a href='/users/signup'>sign up</a> or <a href='/users/login'>log in</a>.<br>
 
+    <p>
+        <?=APP_NAME?> is a microblogging platform for all your microblogging needs.<br><br>
+        or at least, the ones where you need to post and see other people's posts whom you've followed.<br><br>
+        fun features:<br>
+        you can delete posts you've written, and you can add comments to other people's posts (or your own) as well as delete them, if you've made bad choices.<br><br>
+        enjoy!
+    <p>
 <?php endif; ?>
 
 

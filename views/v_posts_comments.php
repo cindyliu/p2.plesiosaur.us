@@ -51,9 +51,10 @@
 
     <p>
         <h3>add a comment</h3>
+
         <form method='POST' action='/posts/p_comment/<?=$post['post_id']?>'>
             <div>
-                <textarea rows='4' cols='30' maxlength='255'  name='content'></textarea>
+                <textarea rows='4' cols='30' maxlength='100'  name='content'></textarea>
             </div>
             <input type='submit' value='post comment'>
         </form>

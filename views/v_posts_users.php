@@ -1,7 +1,7 @@
 <h2>all users</h2>
 
 <div id='userlist'>
-<table cellspacing=10>
+<table cellpadding=10>
 
 <?php foreach($users as $user): ?>
 
